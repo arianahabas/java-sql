@@ -52,7 +52,7 @@ Reimport the Northwind database into PostgreSQL using pgAdmin. This is the same 
 ```SQL
   SELECT contact_name, postal_code
   FROM customers
-  where postal_code = ('1010')
+  WHERE postal_code = ('1010')
 ```
 
 * [✔] ***find the phone number for the supplier with the id 11. Should be (010) 9984510***
@@ -65,7 +65,7 @@ Reimport the Northwind database into PostgreSQL using pgAdmin. This is the same 
 ```SQL
   SELECT supplier_id, phone
   FROM suppliers
-  where supplier_id = 11
+  WHERE supplier_id = 11
 ```
 
 * [✔] ***list orders descending by the order date. The order with date 1998-05-06 should be at the top***
@@ -78,7 +78,7 @@ Reimport the Northwind database into PostgreSQL using pgAdmin. This is the same 
 ```SQL
   SELECT order_id, order_date
   FROM orders
-  order by order_date desc
+  ORDER by order_date desc
 ```
 
 * [✔] ***find all suppliers who have names longer than 20 characters. Returns 11 records***
@@ -107,7 +107,7 @@ Reimport the Northwind database into PostgreSQL using pgAdmin. This is the same 
 ```SQL
   SELECT contact_title
   FROM customers
-  where contact_title like ('%Market%')
+  WHERE UPPER(contact_title) like '%MARKET%'
 ```
 
 * [✔] ***add a customer record for***
@@ -139,10 +139,10 @@ INSERT INTO customers(customer_id, company_name, contact_name, address, city, po
 ```SQL
 UPDATE customers
 SET postal_code = 11122
-where contact_name = 'Bilbo Baggins'
+WHERE contact_name = 'Bilbo Baggins'
 ```
 
-* [ ] ***list orders grouped and ordered by customer company name showing the number of orders per customer company name. _Rattlesnake Canyon Grocery_ should have 18 orders***
+* [✔] ***list orders grouped and ordered by customer company name showing the number of orders per customer company name. _Rattlesnake Canyon Grocery_ should have 18 orders***
 
   <details><summary>hint</summary>
 
@@ -151,10 +151,14 @@ where contact_name = 'Bilbo Baggins'
   </details>
 
 ```SQL
+  SELECT COUNT(o.order_id), c.company_name 
+  FROM orders o JOIN customers c
+  ON o.customer_id = c.customer_id
+  GROUP BY c.company_name
 
 ```
 
-* [ ] ***list customers by contact name and the number of orders per contact name. Sort the list by the number of orders in descending order. _Jose Pavarotti_ should be at the top with 31 orders followed by _Roland Mendal_ with 30 orders. Last should be _Francisco Chang_ with 1 order***
+* [✔] ***list customers by contact name and the number of orders per contact name. Sort the list by the number of orders in descending order. _Jose Pavarotti_ should be at the top with 31 orders followed by _Roland Mendal_ with 30 orders. Last should be _Francisco Chang_ with 1 order***
 
   <details><summary>hint</summary>
 
@@ -162,10 +166,14 @@ where contact_name = 'Bilbo Baggins'
   </details>
 
 ```SQL
-
+  SELECT COUNT (o.order_id), c.contact_name
+  FROM orders o JOIN customers c
+  ON o.customer_id = c.customer_id
+  GROUP BY c.contact_name 
+  ORDER BY COUNT DESC
 ```
 
-* [ ] ***list orders grouped by customer's city showing the number of orders per city. Returns 69 Records with _Aachen_ showing 6 orders and _Albuquerque_ showing 18 orders***
+* [✔] ***list orders grouped by customer's city showing the number of orders per city. Returns 69 Records with _Aachen_ showing 6 orders and _Albuquerque_ showing 18 orders***
 
   <details><summary>hint</summary>
 
@@ -173,14 +181,18 @@ where contact_name = 'Bilbo Baggins'
   </details>
 
 ```SQL
-
+  SELECT COUNT (o.order_id), c.city
+  FROM orders o JOIN customers c
+  ON o.customer_id = c.customer_id
+  GROUP BY c.city 
+  ORDER BY COUNT DESC
 ```
 
 ## Data Normalization
 
 Note: This step does not use PostgreSQL!
 
-* [ ] ***Take the following data and normalize it into a 3NF database***
+* [✔] ***Take the following data and normalize it into a 3NF database***
 
 | Person Name | Pet Name | Pet Type | Pet Name 2 | Pet Type 2 | Pet Name 3 | Pet Type 3 | Fenced Yard | City Dweller |
 |-------------|----------|----------|------------|------------|------------|------------|-------------|--------------|
@@ -193,53 +205,38 @@ Below are some empty tables to be used to normalize the database
 * Not all of the cells will contain data in the final solution
 * Feel free to edit these tables as necessary
 
-Table Name:
+Table Name: Person Table
 
-|            |            |            |            |            |            |            |            |            |
-|------------|------------|------------|------------|------------|------------|------------|------------|------------|
-|            |            |            |            |            |            |            |            |            |
-|            |            |            |            |            |            |            |            |            |
-|            |            |            |            |            |            |            |            |            |
-|            |            |            |            |            |            |            |            |            |
-|            |            |            |            |            |            |            |            |            |
-|            |            |            |            |            |            |            |            |            |
-|            |            |            |            |            |            |            |            |            |
+| Person ID  | Name       |  Fenced Yard   | City Dweller   |  
+|------------|------------|----------------|----------------|- 
+|  1         | Jane       | No             |   Yes          |    
+|  2         | Bob        | No             |   No           |    
+|  3         | Sam        | Yes            |   No           |    
 
-Table Name:
 
-|            |            |            |            |            |            |            |            |            |
-|------------|------------|------------|------------|------------|------------|------------|------------|------------|
-|            |            |            |            |            |            |            |            |            |
-|            |            |            |            |            |            |            |            |            |
-|            |            |            |            |            |            |            |            |            |
-|            |            |            |            |            |            |            |            |            |
-|            |            |            |            |            |            |            |            |            |
-|            |            |            |            |            |            |            |            |            |
-|            |            |            |            |            |            |            |            |            |
+Table Name: Pet Type Table
 
-Table Name:
+|  Type Id   |  Pet Type  |     
+|------------|------------|--
+|   1        | Dog        | 
+|   2        | Horse      | 
+|   3        | Cat        | 
+|   4        | Turtle     | 
+|   5        | Fish       |  
 
-|            |            |            |            |            |            |            |            |            |
-|------------|------------|------------|------------|------------|------------|------------|------------|------------|
-|            |            |            |            |            |            |            |            |            |
-|            |            |            |            |            |            |            |            |            |
-|            |            |            |            |            |            |            |            |            |
-|            |            |            |            |            |            |            |            |            |
-|            |            |            |            |            |            |            |            |            |
-|            |            |            |            |            |            |            |            |            |
-|            |            |            |            |            |            |            |            |            |
+Table Name: Pet Table
 
-Table Name:
+|   Pet Id   | Person Id  | Type ID    | Pet Name   |
+|------------|------------|------------|------------|-
+|     1      |     1      |    1       |  Ellie     | 
+|     2      |     2      |    2       |  Joe       | 
+|     3      |     3      |    1       |  Ginger    | 
+|     4      |     1      |    3       |  Tiger     | 
+|     5      |     3      |    3       |  Miss Kitty| 
+|     6      |     1      |    4       |  Toby      | 
+|     7      |     3      |    5       |  Bubble    |
 
-|            |            |            |            |            |            |            |            |            |
-|------------|------------|------------|------------|------------|------------|------------|------------|------------|
-|            |            |            |            |            |            |            |            |            |
-|            |            |            |            |            |            |            |            |            |
-|            |            |            |            |            |            |            |            |            |
-|            |            |            |            |            |            |            |            |            |
-|            |            |            |            |            |            |            |            |            |
-|            |            |            |            |            |            |            |            |            |
-|            |            |            |            |            |            |            |            |            |
+
 
 ---
 
