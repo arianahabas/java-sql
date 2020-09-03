@@ -192,7 +192,7 @@ WHERE contact_name = 'Bilbo Baggins'
 
 Note: This step does not use PostgreSQL!
 
-* [✔] ***Take the following data and normalize it into a 3NF database***
+* [ ] ***Take the following data and normalize it into a 3NF database***
 
 | Person Name | Pet Name | Pet Type | Pet Name 2 | Pet Type 2 | Pet Name 3 | Pet Type 3 | Fenced Yard | City Dweller |
 |-------------|----------|----------|------------|------------|------------|------------|-------------|--------------|
@@ -207,36 +207,51 @@ Below are some empty tables to be used to normalize the database
 
 Table Name: Person Table
 
-| Person ID  | Name       |  Fenced Yard   | City Dweller   |  
-|------------|------------|----------------|----------------|- 
-|  1         | Jane       | No             |   Yes          |    
-|  2         | Bob        | No             |   No           |    
-|  3         | Sam        | Yes            |   No           |    
-
+|   Person Id         |  Name          |  Fenced Yard          |  City Dweller          |            |            |            |            |            |
+|------------|------------|------------|------------|------------|------------|------------|------------|------------|
+|      1      |    Jane        |  No          |   Yes         |            |            |            |            |            |
+|       2     |    Bob        |   No         |    No        |            |            |            |            |            |
+|        3    |    Sam        |    Yes        |   No         |            |            |            |            |            |
+|            |            |            |            |            |            |            |            |            |
+|            |            |            |            |            |            |            |            |            |
+|            |            |            |            |            |            |            |            |            |
+|            |            |            |            |            |            |            |            |            |
 
 Table Name: Pet Type Table
 
-|  Type Id   |  Pet Type  |     
-|------------|------------|--
-|   1        | Dog        | 
-|   2        | Horse      | 
-|   3        | Cat        | 
-|   4        | Turtle     | 
-|   5        | Fish       |  
+|  Type Id          |   Pet Type         |            |            |            |            |            |            |            |
+|------------|------------|------------|------------|------------|------------|------------|------------|------------|
+|   1         |  Dog          |            |            |            |            |            |            |            |
+|    2        |  Horse          |            |            |            |            |            |            |            |
+|    3        |  Cat          |            |            |            |            |            |            |            |
+|    4        |Turtle            |            |            |            |            |            |            |            |
+|    5        |   Fish         |            |            |            |            |            |            |            |
+|            |            |            |            |            |            |            |            |            |
+|            |            |            |            |            |            |            |            |            |
 
 Table Name: Pet Table
 
-|   Pet Id   | Person Id  | Type ID    | Pet Name   |
-|------------|------------|------------|------------|-
-|     1      |     1      |    1       |  Ellie     | 
-|     2      |     2      |    2       |  Joe       | 
-|     3      |     3      |    1       |  Ginger    | 
-|     4      |     1      |    3       |  Tiger     | 
-|     5      |     3      |    3       |  Miss Kitty| 
-|     6      |     1      |    4       |  Toby      | 
-|     7      |     3      |    5       |  Bubble    |
+|  Pet Id          |   Type Id         |   Person Id         |  Pet Name          |            |            |            |            |            |
+|------------|------------|------------|------------|------------|------------|------------|------------|------------|
+|    1        |   1         |     1       |    Ellie         |            |           |            |            |            |
+|     2       |   2         |     2       |   Joe         |            |            |            |            |            |
+|      3      |   1         |     3       |    Ginger        |            |            |            |            |            |
+|     4       |    3        |    1        |    Tiger        |            |            |            |            |            |
+|     5       |     3       |     3       |   Miss Kitty         |            |            |            |            |            |
+|     6       |     4       |     1       |  Toby          |            |            |            |            |            |
+|     7       |     5       |     3       |  Bubble          |            |            |            |            |            |
 
+Table Name:
 
+|            |            |            |            |            |            |            |            |            |
+|------------|------------|------------|------------|------------|------------|------------|------------|------------|
+|            |            |            |            |            |            |            |            |            |
+|            |            |            |            |            |            |            |            |            |
+|            |            |            |            |            |            |            |            |            |
+|            |            |            |            |            |            |            |            |            |
+|            |            |            |            |            |            |            |            |            |
+|            |            |            |            |            |            |            |            |            |
+|            |            |            |            |            |            |            |            |            |
 
 ---
 
